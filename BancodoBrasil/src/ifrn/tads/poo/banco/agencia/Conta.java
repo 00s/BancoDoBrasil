@@ -7,6 +7,12 @@ public abstract class Conta {
 	protected double saldo;
 	protected Cliente c;
 	
+	Conta(int numero, Cliente c){
+		this.numero = numero;
+		this.c = c;
+		this.ativa = true;
+	}
+	
 	public boolean sacar(double valor){
 		boolean saque = false;
 			if (saldo-valor >= 0){
@@ -36,7 +42,6 @@ public abstract class Conta {
 		boolean transferido;
 		return transferido;
 	}
-	
 	
 	public String verSituacao(){
 		return;
