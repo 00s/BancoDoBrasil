@@ -1,17 +1,23 @@
 package ifrn.tads.poo.banco.agencia;
+import ifrn.tads.poo.banco.cliente.*;
 
 public abstract class Conta {
 	protected int numero;
 	protected boolean ativa;
 	protected double saldo;
+	protected Cliente c;
 	
 	public boolean sacar(double valor){
-		boolean saque;
+		boolean saque = false;
+			if (saldo-valor >= 0){
+				this.saldo-= valor;
+				saque = true;
+			}
 		return saque;
 	}
 	
 	public void depositar(double valor){
-		
+		this.saldo+=valor;
 	}
 	
 	public double verSaldo(){
@@ -23,12 +29,12 @@ public abstract class Conta {
 	}
 	
 	public Cliente verInformacoesCliente(){
-		
+		return c;
 	}
 	
 	public boolean transferirValor(int numConta, int numAgencia, double valor){
-		boolean tranferido;
-		return tranferido;
+		boolean transferido;
+		return transferido;
 	}
 	
 	
