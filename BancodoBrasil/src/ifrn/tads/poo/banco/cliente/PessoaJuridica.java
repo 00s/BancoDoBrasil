@@ -22,5 +22,4 @@ public class PessoaJuridica extends Cliente{
 		this.cnpj = cnpj;
 	}
 
-	
 }

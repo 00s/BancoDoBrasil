@@ -44,6 +44,12 @@ public abstract class Conta {
 	}
 	
 	public String verSituacao(){
-		return;
+		String sit;
+		if(!ativa)
+			sit = "Conta não ativa";
+		else
+			sit = "Conta ativa";
+
+	return sit;
 	}
 }
