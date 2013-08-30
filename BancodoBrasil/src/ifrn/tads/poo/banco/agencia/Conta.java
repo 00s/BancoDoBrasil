@@ -52,4 +52,22 @@ public abstract class Conta {
 
 	return sit;
 	}
+
+	public int getNumero() {
+		return numero;
+	}
+
+	public boolean isAtiva() {
+		return ativa;
+	}
+
+	public double getSaldo() {
+		return saldo;
+	}
+
+	public Cliente getC() {
+		return c;
+	}
+	
+	
 }
