@@ -39,8 +39,14 @@ public abstract class Conta {
 	}
 	
 	public boolean transferirValor(int numConta, int numAgencia, double valor){
-		boolean transferido;
-		return transferido;
+		
+		// implementar busca de conta
+		
+		
+		if(this.getSaldo()>= valor)
+			return true;
+		else
+			return false;
 	}
 	
 	public String verSituacao(){

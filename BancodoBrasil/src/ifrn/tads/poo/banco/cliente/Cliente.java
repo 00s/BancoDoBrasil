@@ -4,21 +4,23 @@ import ifrn.tads.poo.banco.agencia.*;
 
 public abstract class Cliente {
 	protected String nome, telefone, email;
-	protected Conta numeroConta;
-	protected Agencia numeroAgencia;
+	protected Conta minhaConta;
+	protected Agencia minhaAgencia;
 	
-	Cliente(String nome, String telefone, String email){
+	Cliente(String nome, String telefone, String email, Agencia minhaAgencia, Conta minhaConta){
 		this.nome = nome;
 		this.telefone = telefone;
 		this.email = email;
+		this.minhaConta = minhaConta;
+		this.minhaAgencia = minhaAgencia;
 	}
 	
 	public Conta buscarConta(int numero){
-		return numeroConta;
+		return minhaConta;
 	}
 	
 	public Agencia buscarAgencia(int numero){
-		return numeroAgencia;
+		return minhaAgencia;
 	}
 
 	public String getNome() {
