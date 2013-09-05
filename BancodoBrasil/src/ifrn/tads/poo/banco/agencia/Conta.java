@@ -11,6 +11,7 @@ public abstract class Conta {
 		this.numero = numero;
 		this.c = c;
 		this.ativa = true;
+		this.saldo = 0;
 	}
 	
 	public boolean sacar(double valor){

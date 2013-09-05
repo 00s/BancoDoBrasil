@@ -10,11 +10,30 @@ public class Agencia {
 	
 	Agencia(int numero){
 		this.numero = numero;
+	}	
+
+	public boolean criarContaCorrente(Cliente c, int numConta){
+		
+		try{
+			ContaCorrente conta =  new ContaCorrente(numConta, c);
+			contas.add(conta);
+			return true;
+		}throws(numContaInvalidoException e){
+			
+		}
 	}
 
-	public boolean criarConta(Cliente c, int numConta, int limConta, String tipoConta){
-		Conta c = 
+	public boolean criarContaPoupanca(Cliente c, int numConta){
+		try{
+			ContaPoupanca conta =  new ContaPoupanca(numConta, c);
+			contas.add(conta);
+			return true;
+		}throws(numContaInvalidoException e){
+			
+		}
+		
 	}
+	
 	
 	public Conta buscarConta(int numero){
 	
