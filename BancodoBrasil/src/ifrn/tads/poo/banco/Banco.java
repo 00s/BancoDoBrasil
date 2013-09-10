@@ -7,6 +7,7 @@ public class Banco {
 	private int numero;
 	private ArrayList<Agencia> agencias = new ArrayList<Agencia>();
 	
+	
 	Banco(int numero, String nome){
 		this.nome = nome;
 		this.numero = numero;
@@ -24,6 +25,6 @@ public class Banco {
 	}
 	
 	public void adicionarAgencia(Agencia a){
-		
+		agencias.add(a);
 	}
 }

@@ -7,16 +7,17 @@ public class Agencia {
 	private ArrayList<Cliente> clientes = new ArrayList<Cliente>();
 	private int numero;
 	private String nome, endereco, nomeGerente;
-	
-	Agencia(int numero){
+
+	public Agencia(int numero){
 		this.numero = numero;
 	}	
 
 	public boolean criarContaCorrente(Cliente c, int numConta){
 		
 		try{
-			ContaCorrente conta =  new ContaCorrente(numConta, c);
+			ContaCorrente conta = new ContaCorrente(numConta, c);
 			contas.add(conta);
+			clientes.add(c);
 			return true;
 		}throws(numContaInvalidoException e){
 			
@@ -37,7 +38,7 @@ public class Agencia {
 	
 	public Conta buscarConta(int numero){
 	
-		for (int c = 0; c< contas.size(); c++){
+		for (int c = 0; c < contas.size(); c++){
 		
 			if(contas.get(c).getNumero()==numero){
 				return contas.get(c);

@@ -6,10 +6,9 @@ import ifrn.tads.poo.banco.agencia.Conta;
 public class PessoaJuridica extends Cliente{
 	private String nomeFantasia;
 	private int cnpj;
-	public PessoaJuridica(String nome, String telefone, String email, String nomeFantasia, int cnpj
-						  , Agencia minhaAgencia, Conta minhaConta){
+	public PessoaJuridica(String nome, int telefone, String email, String nomeFantasia, int cnpj){
 		
-		super(nome, telefone, email, minhaAgencia, minhaConta);
+		super(nome, telefone, email);
 		this.cnpj = cnpj;
 		this.nomeFantasia = nomeFantasia;
 	}

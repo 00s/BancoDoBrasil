@@ -15,12 +15,10 @@ public abstract class Conta {
 	}
 	
 	public boolean sacar(double valor){
-		boolean saque = false;
 			if (saldo-valor >= 0){
 				this.saldo-= valor;
-				saque = true;
-			}
-		return saque;
+				return true;
+			}else return false;
 	}
 	
 	public void depositar(double valor){
@@ -34,6 +32,12 @@ public abstract class Conta {
 	public void cancelarConta(){
 		
 	}
+	
+	public void alterarEstadoConta(){
+		if (this.ativa)	this.ativa = false;
+		else this.ativa = true;
+	}
+
 	
 	public Cliente verInformacoesCliente(){
 		return c;
@@ -60,6 +64,8 @@ public abstract class Conta {
 	return sit;
 	}
 
+	
+	
 	public int getNumero() {
 		return numero;
 	}
@@ -75,6 +81,5 @@ public abstract class Conta {
 	public Cliente getC() {
 		return c;
 	}
-	
 	
 }
