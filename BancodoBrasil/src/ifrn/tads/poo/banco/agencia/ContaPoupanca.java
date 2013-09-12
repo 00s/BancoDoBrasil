@@ -10,7 +10,7 @@ public class ContaPoupanca extends Conta {
 	@SuppressWarnings("deprecation")
 	public ContaPoupanca(int numero, Cliente c) {
 		super(numero, c);
-		aniversario.getDate(); // verificar se este é o método correto
+	//	aniversario.getDate(); // verificar se este é o método correto
 	}
 	
 	void calcularRendimentoDoMes (){

@@ -27,4 +27,10 @@ public class Banco {
 	public void adicionarAgencia(Agencia a){
 		agencias.add(a);
 	}
+
+	public ArrayList<Agencia> getAgencias() {
+		return agencias;
+	}
+	
+	
 }

@@ -8,16 +8,19 @@ public class AlgoritmoDerpofoldao {
 	
 	
 	public AlgoritmoDerpofoldao() {
-		pre = number.nextInt(9999);
+		do  {	
+			pre = number.nextInt(9999);
+	     	} while(pre<1000);
 	}
 	public AlgoritmoDerpofoldao(int pre){
 		this.pre = pre;
 	}
 	
-	int gerarNumero(){
+	public int gerarNumero(){
 	
-		System.out.println(pre);
+		
 		int numeroValido = derpofoldao(pre, pre, 0);
+		System.out.println(numeroValido);
 		return numeroValido;
 	}
 	

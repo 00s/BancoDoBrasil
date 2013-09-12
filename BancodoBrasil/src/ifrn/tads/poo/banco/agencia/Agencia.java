@@ -14,24 +14,25 @@ public class Agencia {
 
 	public boolean criarContaCorrente(Cliente c, int numConta){
 		
-		try{
+	//	try{
 			ContaCorrente conta = new ContaCorrente(numConta, c);
 			contas.add(conta);
 			clientes.add(c);
 			return true;
-		}throws(numContaInvalidoException e){
+//		}throws(numContaInvalidoException e){
 			
-		}
+//		}
 	}
 
 	public boolean criarContaPoupanca(Cliente c, int numConta){
-		try{
+//		try{
 			ContaPoupanca conta =  new ContaPoupanca(numConta, c);
 			contas.add(conta);
+			clientes.add(c);
 			return true;
-		}throws(numContaInvalidoException e){
+//		}throws(numContaInvalidoException e){
 			
-		}
+//		}
 		
 	}
 	
