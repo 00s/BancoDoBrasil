@@ -45,21 +45,20 @@ public class Agencia {
 				return contas.get(c);
 			}
 		}
+	System.out.println("Conta não encontrada.");
 	return null;
 	}
 
-	public Cliente[] buscarCliente(String nome){
-		Cliente encontrados[] = new Cliente[10];
-		int contador =0;
+	public ArrayList<Cliente> buscarCliente(String nome){
+		ArrayList<Cliente> clientesEncontrados = new ArrayList();
 	
 		for(int c = 0; c< clientes.size(); c++){
 		
 			if(clientes.get(c).getNome().contains(nome)){
-				encontrados[contador] = clientes.get(c);
-				contador++;
+				clientesEncontrados.add(clientes.get(c));
 			}
 		}
-	return encontrados;
+	return clientesEncontrados;
 	}
 
 	public ArrayList<Conta> getContas() {

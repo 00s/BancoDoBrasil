@@ -1,7 +1,7 @@
 package ifrn.tads.poo.banco.cliente;
 
-import ifrn.tads.poo.banco.agencia.Agencia;
-import ifrn.tads.poo.banco.agencia.Conta;
+//import ifrn.tads.poo.banco.agencia.Agencia;
+//import ifrn.tads.poo.banco.agencia.Conta;
 
 public class PessoaJuridica extends Cliente{
 	private String nomeFantasia;
@@ -11,6 +11,11 @@ public class PessoaJuridica extends Cliente{
 		super(nome, telefone, email);
 		this.cnpj = cnpj;
 		this.nomeFantasia = nomeFantasia;
+	}
+	
+	public String toString(){
+		return "\tNome: " + getNome() + "\n\tNome Fantasia: " + getNomeFantasia() + "\n\tCPF: " 
+	          + getCnpj() + "\n\tEmail: " + getEmail() + "\n\tTelefone: " + getTelefone() + "\n ---";
 	}
 	
 	public String getNomeFantasia() {

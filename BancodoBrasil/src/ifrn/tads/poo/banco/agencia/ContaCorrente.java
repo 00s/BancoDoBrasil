@@ -9,7 +9,7 @@ public class ContaCorrente extends Conta {
 		this.limite = 250;
 	}
 	
-	public void mudarLimiteDeConta(double novoLimite){
+	public void mudarLimiteDaConta(double novoLimite){
 		this.limite = novoLimite;
 	}
 	

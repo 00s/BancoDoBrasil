@@ -21,6 +21,7 @@ public class Banco {
 				return agencias.get(i);
 			}
 		}
+		System.out.println("Agencia nao encontrada");
 		return null;
 	}
 	

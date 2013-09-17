@@ -1,4 +1,5 @@
 package ifrn.tads.poo.banco.agencia;
+import ifrn.tads.poo.banco.Banco;
 import ifrn.tads.poo.banco.cliente.*;
 
 public abstract class Conta {
@@ -17,12 +18,16 @@ public abstract class Conta {
 	public boolean sacar(double valor){
 			if (saldo-valor >= 0){
 				this.saldo-= valor;
+				System.out.println("Saque efetuado.");
 				return true;
-			}else return false;
+			}
+			System.out.println("Saldo Insuficiente.");
+			return false;
 	}
 	
 	public void depositar(double valor){
 		this.saldo+=valor;
+		System.out.println("Deposito efetuado.");
 	}
 	
 	public double verSaldo(){
@@ -43,21 +48,30 @@ public abstract class Conta {
 		return c;
 	}
 	
-	public boolean transferirValor(int numConta, int numAgencia, double valor){
+	public boolean transferirValor(Banco banco, int numConta, int numAgencia, double valor){
 		
 		// implementar busca de conta
-		
-		
-		if(this.getSaldo()>= valor)
-			return true;
-		else
+		if(this.verSaldo() < valor){
+			System.out.println("Saldo insuficiente.");
 			return false;
+		}
+		
+		if(c.buscarAgencia(banco, numAgencia) != null){
+			if (c.buscarConta(banco, numAgencia) != null){
+				this.sacar(valor);
+				c.buscarAgencia(banco, numAgencia).buscarConta(numAgencia).depositar(valor);
+				System.out.println("Transferencia efetuada.");
+				return true;
+			}
+		} 
+		return false;
 	}
 	
 	public String verSituacao(){
 		String sit;
 		if(!ativa)
-			sit = "Conta não ativa";
+			sit = "Conta nao ativa";
+		// adicionar limite
 		else
 			sit = "Conta ativa";
 
@@ -78,7 +92,7 @@ public abstract class Conta {
 		return saldo;
 	}
 
-	public Cliente getC() {
+	public Cliente getCliente() {
 		return c;
 	}
 	
