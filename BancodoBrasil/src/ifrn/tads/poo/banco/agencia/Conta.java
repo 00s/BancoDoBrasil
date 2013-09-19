@@ -21,7 +21,6 @@ public abstract class Conta {
 				System.out.println("Saque efetuado.");
 				return true;
 			}
-			System.out.println("Saldo Insuficiente.");
 			return false;
 	}
 	
@@ -77,8 +76,6 @@ public abstract class Conta {
 
 	return sit;
 	}
-
-	
 	
 	public int getNumero() {
 		return numero;

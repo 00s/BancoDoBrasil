@@ -7,6 +7,7 @@ public class ContaCorrente extends Conta {
 	public ContaCorrente(int numero, Cliente c) {
 		super(numero, c);
 		this.limite = 250;
+		this.saldo += limite;
 	}
 	
 	public void mudarLimiteDaConta(double novoLimite){
@@ -15,5 +16,8 @@ public class ContaCorrente extends Conta {
 	
 	public double getLimite(){
 		return limite;
+	}
+	public String toString(){
+		return 
 	}
 }

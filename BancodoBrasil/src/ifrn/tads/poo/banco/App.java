@@ -41,10 +41,10 @@ public class App {
 			break;
 		case 2:
 			System.out.println("Numero da agencia:\n");
-			//try{
+
 				a = banco.buscarAgencia(ler.nextInt());
 				menuAgencia(a);
-			//}catch(){ }
+
 
 			break;
 			
@@ -112,12 +112,13 @@ public class App {
 			switch (qualConta = ler.nextInt()) {
 			case 1:
 					
-					c = cadastrarClientePessoaFisica();
+				c = cadastrarClientePessoaFisica();
 			do{		
+				
 				try{	
-					a.criarContaCorrente(c, adp.gerarNumero());
-					contaCriada = true;
+					contaCriada = a.criarContaCorrente(c, adp.gerarNumero()); 
 				}catch(NumContaExistenteException e){}
+				
 			}while(!contaCriada);
 			
 				break;
@@ -173,7 +174,7 @@ public class App {
 	
 	public static PessoaFisica cadastrarClientePessoaFisica(){
 		msg.qualNome();
-		String nome = lerTexto.nextLine();		// criar sempre?
+		String nome = lerTexto.nextLine();
 		
 		msg.qualTelefone();
 		int telefone = ler.nextInt();
@@ -277,7 +278,7 @@ public class App {
 		   System.out.printf("Sr(a). %s, seu saldo atual e de %f.\n", cp.getCliente().getNome(), cp.getSaldo());
 			
 			break;
-		case 2: // ver situa��o da conta
+		case 2: // ver situacao da conta
 			System.out.println(cp.verSituacao());
 			
 			break;
