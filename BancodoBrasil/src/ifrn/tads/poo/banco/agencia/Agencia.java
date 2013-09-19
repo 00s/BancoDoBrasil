@@ -18,6 +18,8 @@ public class Agencia {
 			ContaCorrente conta = new ContaCorrente(numConta, c);
 			contas.add(conta);
 			clientes.add(c);
+			c.setMinhaAgencia(this.numero);
+			c.setMinhaConta(numConta);
 			return true;
 //		}throws(numContaInvalidoException e){
 			
@@ -29,6 +31,8 @@ public class Agencia {
 			ContaPoupanca conta =  new ContaPoupanca(numConta, c);
 			contas.add(conta);
 			clientes.add(c);
+			c.setMinhaAgencia(this.numero);
+			c.setMinhaConta(numConta);
 			return true;
 //		}throws(numContaInvalidoException e){
 			
@@ -45,7 +49,7 @@ public class Agencia {
 				return contas.get(c);
 			}
 		}
-	System.out.println("Conta não encontrada.");
+	System.out.println("Conta nï¿½o encontrada.");
 	return null;
 	}
 

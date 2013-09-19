@@ -83,5 +83,11 @@ public class Mensagens {
 		System.out.println("Digite o numero da conta: \n");
 	}
 	
-
+	public void qualSenha(){
+		System.out.println("Digite sua senha: \n");
+	}
+	
+	public void ConfirmeSenha(){
+		System.out.println("Confirme sua senha: \n");
+	}
 }

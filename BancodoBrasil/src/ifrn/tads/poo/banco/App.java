@@ -1,9 +1,11 @@
 package ifrn.tads.poo.banco;
+import ifrn.tads.poo.BancoExceptions.SenhaIncorretaException;
 import ifrn.tads.poo.banco.cliente.*;
 import ifrn.tads.poo.banco.agencia.*;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+
 
 public class App {
 	static Scanner  ler = new Scanner(System.in);
@@ -165,7 +167,10 @@ public class App {
 		msg.qualCPF();
 		int cpf = ler.nextInt();
 		
-		return new PessoaFisica(nome, telefone, email, cpf);
+		msg.qualSenha();
+		int senha = ler.nextInt();
+		
+		return new PessoaFisica(nome, telefone, email, cpf, senha);
 		
 	}
 	
@@ -184,7 +189,23 @@ public class App {
 		
 		msg.qualCNPJ();
 		int cnpj = ler.nextInt();
-		return new PessoaJuridica(nome, telefone, email, nomeFantasia, cnpj);
+		
+		int senha = -1;
+		boolean senhasOK = false;
+	
+		do {
+			try {
+				 
+				senha = criarSenha();
+				senhasOK = true;
+				
+			} catch (SenhaIncorretaException e) {
+				System.out.println(e.getMessage(nome));
+
+			}
+		} while (!senhasOK);
+		
+		return new PessoaJuridica(nome, telefone, email, nomeFantasia, cnpj, senha);
 	}
 
 	public static void menuConta(ContaCorrente cc){
@@ -350,6 +371,26 @@ public class App {
 		}
 	}
 	
+	private static int criarSenha() throws SenhaIncorretaException{
+		
+		msg.qualSenha();
+	    int senha1 = ler.nextInt();
+	
+	    msg.ConfirmeSenha();
+	    int senha2 = ler.nextInt();
+	    
+	    return checarSenha(senha1, senha2);
+	    
+	}
+	
+	
+	private static int checarSenha(int senha1, int senha2) throws SenhaIncorretaException
+	
+	{
+		if(senha1 == senha2) return senha1;
+
+		throw new SenhaIncorretaException();
+	}
 }
 
 

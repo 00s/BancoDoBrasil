@@ -8,12 +8,13 @@ public abstract class Cliente {
 	protected int minhaConta;
 	protected int minhaAgencia;
 	protected int telefone;
+	protected int senha; 
 	
-	Cliente(String nome, int telefone, String email){
+	Cliente(String nome, int telefone, String email, int senha){
 		this.nome = nome.toUpperCase();
 		this.telefone = telefone;
 		this.email = email;
-		
+		this.senha = senha;
 	}
 	
 	public Conta buscarConta(Banco banco, int numero){
@@ -31,6 +32,7 @@ public abstract class Cliente {
 		return banco.buscarAgencia(numero);
 	}
 	
+	
 	public abstract String toString();
 
 	public String getNome() {
@@ -44,6 +46,23 @@ public abstract class Cliente {
 	public String getEmail() {
 		return email;
 	}
+
+	public void setMinhaAgencia(int numAgencia){
+		this.minhaAgencia = numAgencia;
+	}
+	
+	public void setMinhaConta(int numConta){
+		this.minhaConta = numConta;
+	}
+
+	public int getMinhaConta() {
+		return minhaConta;
+	}
+
+	public int getMinhaAgencia() {
+		return minhaAgencia;
+	}
+	
 
 	
 }

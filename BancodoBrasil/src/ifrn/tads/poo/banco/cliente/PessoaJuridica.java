@@ -6,9 +6,9 @@ package ifrn.tads.poo.banco.cliente;
 public class PessoaJuridica extends Cliente{
 	private String nomeFantasia;
 	private int cnpj;
-	public PessoaJuridica(String nome, int telefone, String email, String nomeFantasia, int cnpj){
+	public PessoaJuridica(String nome, int telefone, String email, String nomeFantasia, int cnpj, int senha){
 		
-		super(nome, telefone, email);
+		super(nome, telefone, email, senha);
 		this.cnpj = cnpj;
 		this.nomeFantasia = nomeFantasia;
 	}
