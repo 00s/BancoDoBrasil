@@ -1,4 +1,5 @@
 package ifrn.tads.poo.banco;
+import ifrn.tads.poo.BancoExceptions.NumContaExistenteException;
 import ifrn.tads.poo.BancoExceptions.SenhaIncorretaException;
 import ifrn.tads.poo.banco.cliente.*;
 import ifrn.tads.poo.banco.agencia.*;
@@ -106,19 +107,30 @@ public class App {
 		Cliente c;
 		int qualConta;
 		msg.qualTipoDeConta();
+		boolean contaCriada = false;
 		do{
 			switch (qualConta = ler.nextInt()) {
 			case 1:
 					
 					c = cadastrarClientePessoaFisica();
+			do{		
+				try{	
 					a.criarContaCorrente(c, adp.gerarNumero());
-					
+					contaCriada = true;
+				}catch(NumContaExistenteException e){}
+			}while(!contaCriada);
+			
 				break;
 			
 			case 2:
-					c = cadastrarClientePessoaFisica();
-					a.criarContaPoupanca(c, adp.gerarNumero());
 				
+					c = cadastrarClientePessoaFisica();
+				do{		
+					try{		
+						contaCriada = a.criarContaPoupanca(c, adp.gerarNumero());
+						
+					}catch(NumContaExistenteException i){}
+				}while(!contaCriada);
 			break;
 	
 			default:
@@ -128,9 +140,14 @@ public class App {
 	}
 	
 	public static void criarContaPessoaJuridica(Agencia a){
-		
+		boolean contaCriada = false;
 		Cliente c = cadastrarClientePessoaJuridica();
-		a.criarContaCorrente(c, adp.gerarNumero());
+		
+		do{	
+			try{	
+				contaCriada = a.criarContaCorrente(c, adp.gerarNumero());
+			}catch(NumContaExistenteException e){}
+		}while(!contaCriada);
 	}
 	
 	

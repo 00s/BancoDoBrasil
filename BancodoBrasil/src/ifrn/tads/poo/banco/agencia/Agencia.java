@@ -1,5 +1,9 @@
+
 package ifrn.tads.poo.banco.agencia;
+import ifrn.tads.poo.BancoExceptions.*;
+import ifrn.tads.poo.banco.*;
 import ifrn.tads.poo.banco.cliente.*;
+
 import java.util.ArrayList;
 public class Agencia {
 
@@ -12,31 +16,38 @@ public class Agencia {
 		this.numero = numero;
 	}	
 
-	public boolean criarContaCorrente(Cliente c, int numConta){
+	public boolean criarContaCorrente(Cliente c, int numConta) throws NumContaExistenteException {
 		
-	//	try{
-			ContaCorrente conta = new ContaCorrente(numConta, c);
+
+		for(Cliente cl : clientes){
+			if(cl.getMinhaConta() == numConta){
+				throw new NumContaExistenteException();
+			}
+		}
+		
+		ContaCorrente conta = new ContaCorrente(numConta, c);
+			
 			contas.add(conta);
 			clientes.add(c);
 			c.setMinhaAgencia(this.numero);
 			c.setMinhaConta(numConta);
 			return true;
-//		}throws(numContaInvalidoException e){
-			
-//		}
 	}
 
-	public boolean criarContaPoupanca(Cliente c, int numConta){
-//		try{
+	public boolean criarContaPoupanca(Cliente c, int numConta) throws NumContaExistenteException{
+
+			for(Cliente cl : clientes){
+				if(cl.getMinhaConta() == numConta){
+					throw new NumContaExistenteException();
+				}
+			}
+		
 			ContaPoupanca conta =  new ContaPoupanca(numConta, c);
 			contas.add(conta);
 			clientes.add(c);
 			c.setMinhaAgencia(this.numero);
 			c.setMinhaConta(numConta);
-			return true;
-//		}throws(numContaInvalidoException e){
-			
-//		}
+		return true;
 		
 	}
 	

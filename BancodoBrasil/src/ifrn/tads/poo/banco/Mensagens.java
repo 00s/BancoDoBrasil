@@ -88,6 +88,6 @@ public class Mensagens {
 	}
 	
 	public void ConfirmeSenha(){
-		System.out.println("Confirme sua senha: \n");
+		System.out.println("Confirme sua senha: \n ");
 	}
 }
