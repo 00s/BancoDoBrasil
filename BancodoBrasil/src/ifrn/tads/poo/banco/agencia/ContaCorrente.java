@@ -17,7 +17,5 @@ public class ContaCorrente extends Conta {
 	public double getLimite(){
 		return limite;
 	}
-	public String toString(){
-		return 
-	}
+
 }

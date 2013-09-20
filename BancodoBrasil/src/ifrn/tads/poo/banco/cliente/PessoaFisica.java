@@ -12,8 +12,13 @@ public class PessoaFisica extends Cliente {
 	}
 	
 	public String toString(){
-		return "\tNome: " + getNome() + "\n\tCPF: " + getCpf() + "\n\tEmail: " + getEmail() +
-				"\n\tTelefone: " + getTelefone() + "\n ---";
+		return   "\tNome: " + getNome() 
+			 + "\n\tCPF: " + getCpf()
+			 + "\n\tAgência: " + super.minhaAgencia
+			 + "\n\tConta: " + super.minhaConta
+			 + "\n\tEmail: " + getEmail()
+			 + "\n\tTelefone: " + getTelefone()
+			 + "\n---";
 	}
 	
 	

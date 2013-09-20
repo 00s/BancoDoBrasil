@@ -1,8 +1,7 @@
 
 package ifrn.tads.poo.banco.agencia;
-import ifrn.tads.poo.BancoExceptions.*;
-import ifrn.tads.poo.banco.*;
 import ifrn.tads.poo.banco.cliente.*;
+import ifrn.tads.poo.banco.exceptions.*;
 
 import java.util.ArrayList;
 public class Agencia {
@@ -31,7 +30,8 @@ public class Agencia {
 			clientes.add(c);
 			c.setMinhaAgencia(this.numero);
 			c.setMinhaConta(numConta);
-			return true;
+			System.out.println(c.toString());
+		return true;
 	}
 
 	public boolean criarContaPoupanca(Cliente c, int numConta) throws NumContaExistenteException{
@@ -47,6 +47,7 @@ public class Agencia {
 			clientes.add(c);
 			c.setMinhaAgencia(this.numero);
 			c.setMinhaConta(numConta);
+			System.out.println(c.toString());
 		return true;
 		
 	}
@@ -65,7 +66,7 @@ public class Agencia {
 	}
 
 	public ArrayList<Cliente> buscarCliente(String nome){
-		ArrayList<Cliente> clientesEncontrados = new ArrayList();
+		ArrayList<Cliente> clientesEncontrados = new ArrayList<Cliente>();
 	
 		for(int c = 0; c< clientes.size(); c++){
 		

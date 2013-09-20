@@ -20,7 +20,7 @@ public class AlgoritmoDerpofoldao {
 	
 		
 		int numeroValido = derpofoldao(pre, pre, 0);
-		System.out.println(numeroValido);
+	//	System.out.println(numeroValido);
 		return numeroValido;
 	}
 	

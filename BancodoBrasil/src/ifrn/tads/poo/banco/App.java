@@ -1,7 +1,7 @@
 package ifrn.tads.poo.banco;
-import ifrn.tads.poo.BancoExceptions.NumContaExistenteException;
-import ifrn.tads.poo.BancoExceptions.SenhaIncorretaException;
 import ifrn.tads.poo.banco.cliente.*;
+import ifrn.tads.poo.banco.exceptions.NumContaExistenteException;
+import ifrn.tads.poo.banco.exceptions.SenhaIncorretaException;
 import ifrn.tads.poo.banco.agencia.*;
 
 import java.util.ArrayList;
@@ -185,8 +185,20 @@ public class App {
 		msg.qualCPF();
 		int cpf = ler.nextInt();
 		
-		msg.qualSenha();
-		int senha = ler.nextInt();
+		int senha = -1;
+		boolean senhasOK = false;
+	
+		do {
+			try {
+				 
+				senha = criarSenha();
+				senhasOK = true;
+				
+			} catch (SenhaIncorretaException e) {
+				System.out.println(e.getMessage(nome));
+
+			}
+		} while (!senhasOK);
 		
 		return new PessoaFisica(nome, telefone, email, cpf, senha);
 		
@@ -235,7 +247,7 @@ public class App {
 		
 		switch (opMenuConta) {
 		case 1: // consultar saldo
-		   System.out.printf("Sr(a). %s, seu saldo atual e de %.2f.\n", cc.getCliente().getNome(), cc.getSaldo());
+		   System.out.printf("Sr(a). %s, seu saldo atual (com limite) é de %.2f.\n", cc.getCliente().getNome(), cc.getSaldo());
 			
 			break;
 		case 2: // ver situacao da conta

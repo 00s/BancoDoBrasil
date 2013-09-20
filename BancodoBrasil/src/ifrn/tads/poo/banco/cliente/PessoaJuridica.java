@@ -14,8 +14,14 @@ public class PessoaJuridica extends Cliente{
 	}
 	
 	public String toString(){
-		return "\tNome: " + getNome() + "\n\tNome Fantasia: " + getNomeFantasia() + "\n\tCPF: " 
-	          + getCnpj() + "\n\tEmail: " + getEmail() + "\n\tTelefone: " + getTelefone() + "\n ---";
+		return "\tNome: " + getNome()
+				+ "\n\tCNPJ: "  + getCnpj() 
+				+ "\n\tAgência: " + super.minhaAgencia
+				+ "\n\tConta: " + super.minhaConta
+				+ "\n\tNome Fantasia: "	+ getNomeFantasia()
+				+ "\n\tEmail: " + getEmail() 
+				+ "\n\tTelefone: " 
+				+ getTelefone() + "\n---";
 	}
 	
 	public String getNomeFantasia() {

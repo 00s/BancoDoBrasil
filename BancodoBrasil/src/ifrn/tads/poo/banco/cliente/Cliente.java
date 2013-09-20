@@ -35,6 +35,8 @@ public abstract class Cliente {
 	
 	public abstract String toString();
 
+
+	
 	public String getNome() {
 		return nome;
 	}
