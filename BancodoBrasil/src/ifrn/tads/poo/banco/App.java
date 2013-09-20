@@ -1,6 +1,8 @@
 package ifrn.tads.poo.banco;
 import ifrn.tads.poo.banco.cliente.*;
+import ifrn.tads.poo.banco.exceptions.ClienteNaoEncontradoException;
 import ifrn.tads.poo.banco.exceptions.NumContaExistenteException;
+import ifrn.tads.poo.banco.exceptions.SaldoInsuficienteException;
 import ifrn.tads.poo.banco.exceptions.SenhaIncorretaException;
 import ifrn.tads.poo.banco.agencia.*;
 
@@ -83,8 +85,11 @@ public class App {
 					break;
 					
 				case 3: //busca cliente em todas as agencias e imprime toString de cada cliente
-						
+					try{
 						fluxoBuscarCliente();
+					}catch(ClienteNaoEncontradoException c){
+						System.out.println(c.getMessage());
+					}
 					break;
 					
 				case 4: // realiza deposito
@@ -183,7 +188,7 @@ public class App {
 		String email = ler.next();
 		
 		msg.qualCPF();
-		int cpf = ler.nextInt();
+		String cpf = lerTexto.nextLine();
 		
 		int senha = -1;
 		boolean senhasOK = false;
@@ -247,7 +252,7 @@ public class App {
 		
 		switch (opMenuConta) {
 		case 1: // consultar saldo
-		   System.out.printf("Sr(a). %s, seu saldo atual (com limite) é de %.2f.\n", cc.getCliente().getNome(), cc.getSaldo());
+		   System.out.printf("Sr(a). %s, seu saldo atual (com limite) é de %.2f.\n\n", cc.getCliente().getNome(), cc.getSaldo());
 			
 			break;
 		case 2: // ver situacao da conta
@@ -316,9 +321,18 @@ public class App {
 	
 	private static void fluxoSaque(Conta conta){
 		System.out.println("Informe o valor do saque:\n");
-		if(conta.sacar(ler.nextDouble())){
-			System.out.println("Saque efetuado.");
-		}else System.out.println("Saldo insuficiente.");  /// TRYCATCHCCCCH
+		double valor = ler.nextDouble();
+		System.out.println("Informe a senha:\n");
+		int senha = ler.nextInt();
+	
+		try{
+			conta.sacar(valor, senha);
+			System.out.println("Saque efetuado.\n---\n");
+		}catch (SaldoInsuficienteException s){
+			System.out.println(s.getMessage()); /// TRYCATCHCCCCH
+		}catch (SenhaIncorretaException s){
+			System.out.println(s.getMessage(conta.getCliente().getNome()));
+		}
 	}
 	
 	private static void fluxoDeposito(){
@@ -340,11 +354,18 @@ public class App {
 		int numAgencia = ler.nextInt();
 		System.out.println("Informe o numero da conta de destino: \n");
 		int numConta = ler.nextInt();
-		double valor = ler.nextDouble();
 		System.out.println("Informe o valor da transferencia: \n");
+		double valor = ler.nextDouble();
+		System.out.println("informe a sua senha:\n");
+		int senha = ler.nextInt();
 		
-		conta.transferirValor(banco, numConta, numAgencia, valor);
-		
+		try{	
+			conta.transferirValor(banco, numConta, numAgencia, valor, senha);
+		}catch(SaldoInsuficienteException s){
+			System.out.println(s.getMessage());
+		}catch(SenhaIncorretaException s){
+			System.out.println(s.getMessage(conta.getCliente().getNome()));
+		}	
 	}
 	
 	private static boolean fluxoAlteracaoDeLimite(ContaCorrente cc){ // catch ContaInvalidaException
@@ -374,7 +395,7 @@ public class App {
 			}
 			break;
 		
-		case 2: //  Conta poupan�a
+		case 2: //  Conta poupança
 			ContaPoupanca cp = (ContaPoupanca) a.buscarConta(numConta);
 			if(cp != null){
 				System.out.println(cp.verInformacoesCliente().toString());
@@ -387,18 +408,21 @@ public class App {
 			break;
 		}
 	}
-	private static void fluxoBuscarCliente(){	
+	private static void fluxoBuscarCliente() throws ClienteNaoEncontradoException{	
+		ArrayList<Cliente> clientesEncontrados = new ArrayList<Cliente>();
+		
 		System.out.println("Insira o nome do cliente a ser encontrado");
 		String nomeCliente = lerTexto.nextLine().toUpperCase();
-		ArrayList<Cliente> clientesEncontrados = new ArrayList<Cliente>();
+		
 		
 		for(int i = 0; i< banco.getAgencias().size(); i++){
 			clientesEncontrados.addAll(banco.getAgencias().get(i).buscarCliente(nomeCliente));
 		}
-		
-		for(Cliente c : clientesEncontrados){
-			System.out.println(c.toString());
-		}
+			if(clientesEncontrados.size() != 0){
+				for(Cliente c : clientesEncontrados){
+					System.out.println(c.toString());
+				}
+			} else throw new ClienteNaoEncontradoException(nomeCliente);
 	}
 	
 	private static int criarSenha() throws SenhaIncorretaException{
@@ -426,7 +450,7 @@ public class App {
 
 /*
  * .jar
- * criar m�todos de verifica�ao de datas para juros e rendimentos
+ * criar metodos de verificaçao de datas para juros e rendimentos
  * alterar fluxo do menu
- * corrigir par�metriza��o 
+ * corrigir parametrizaçao 
  */

@@ -16,7 +16,8 @@ public class Mensagens {
 	}
 	
 	public void menuAgencia(Agencia a){
-		System.out.printf("Agencia %d acessada.\n"
+		System.out.printf("---\n"
+						+ "Agencia %d.\n"
 						+ "---\n"
 						+ "1 - Abrir nova conta\n"
 						+ "2 - Buscar conta\n"

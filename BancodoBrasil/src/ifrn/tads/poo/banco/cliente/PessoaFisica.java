@@ -4,8 +4,8 @@ package ifrn.tads.poo.banco.cliente;
 //import ifrn.tads.poo.banco.agencia.Conta;
 
 public class PessoaFisica extends Cliente {
-	private int cpf;
-	public PessoaFisica(String nome, int telefone, String email, int cpf, int senha) {
+	private String cpf;
+	public PessoaFisica(String nome, int telefone, String email, String cpf, int senha) {
 		
 		super(nome, telefone, email, senha);
 		this.cpf = cpf;
@@ -22,10 +22,10 @@ public class PessoaFisica extends Cliente {
 	}
 	
 	
-	public int getCpf() {
+	public String getCpf() {
 		return cpf;
 	}
-	public void setCpf(int cpf) {
+	public void setCpf(String cpf) {
 		this.cpf = cpf;
 	}
 

@@ -1,6 +1,7 @@
 package ifrn.tads.poo.banco.cliente;
 import ifrn.tads.poo.banco.*;
 import ifrn.tads.poo.banco.agencia.*;
+import ifrn.tads.poo.banco.exceptions.SenhaIncorretaException;
 
 
 public abstract class Cliente {
@@ -65,6 +66,9 @@ public abstract class Cliente {
 		return minhaAgencia;
 	}
 	
-
+	public boolean checkSenha(int senha) throws SenhaIncorretaException{
+		if(this.senha == senha) return true;
+		throw new SenhaIncorretaException();	
+	}
 	
 }

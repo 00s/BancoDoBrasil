@@ -1,6 +1,8 @@
 package ifrn.tads.poo.banco.agencia;
 import ifrn.tads.poo.banco.Banco;
 import ifrn.tads.poo.banco.cliente.*;
+import ifrn.tads.poo.banco.exceptions.SaldoInsuficienteException;
+import ifrn.tads.poo.banco.exceptions.SenhaIncorretaException;
 
 public abstract class Conta {
 	protected int numero;
@@ -15,13 +17,18 @@ public abstract class Conta {
 		this.saldo = 0;
 	}
 	
-	public boolean sacar(double valor){
-			if (saldo-valor >= 0){
+	public boolean sacar(double valor, int senha) throws SaldoInsuficienteException, SenhaIncorretaException{
+		
+		if(!c.checkSenha(senha)){
+			throw new SenhaIncorretaException();
+		}
+		
+		if (saldo-valor >= 0){
 				this.saldo-= valor;
-				System.out.println("Saque efetuado.");
+				//System.out.println("Saque efetuado.");
 				return true;
-			}
-			return false;
+		}		
+		throw new SaldoInsuficienteException();
 	}
 	
 	public void depositar(double valor){
@@ -47,7 +54,7 @@ public abstract class Conta {
 		return c;
 	}
 	
-	public boolean transferirValor(Banco banco, int numConta, int numAgencia, double valor){
+	public boolean transferirValor(Banco banco, int numConta, int numAgencia, double valor, int senha) throws SaldoInsuficienteException, SenhaIncorretaException{
 		
 		// implementar busca de conta
 		if(this.verSaldo() < valor){
@@ -57,7 +64,7 @@ public abstract class Conta {
 		
 		if(c.buscarAgencia(banco, numAgencia) != null){
 			if (c.buscarConta(banco, numAgencia) != null){
-				this.sacar(valor);
+				this.sacar(valor, senha);
 				c.buscarAgencia(banco, numAgencia).buscarConta(numAgencia).depositar(valor);
 				System.out.println("Transferencia efetuada.");
 				return true;
@@ -69,10 +76,10 @@ public abstract class Conta {
 	public String verSituacao(){
 		String sit;
 		if(!ativa)
-			sit = "Conta nao ativa";
+			sit = "Conta nao ativa\n";
 		// adicionar limite
 		else
-			sit = "Conta ativa";
+			sit = "Conta ativa\n";
 
 	return sit;
 	}
