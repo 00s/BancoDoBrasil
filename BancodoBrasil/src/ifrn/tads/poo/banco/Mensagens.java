@@ -39,10 +39,8 @@ public class Mensagens {
 		System.out.println( "1 - Consultar Saldo\n" +
 				   			"2 - Ver Situacao da conta\n" +
 				   			"3 - Saque\n" +
-				   			"4 - Deposito\n" +
-				   			"5 - Transferencia\n" +
-				   			"6 - Alterar limite \n" +
-				   			"7 - Cancelar\n");
+				   			"4 - Transferencia\n" +
+				   			"5 - Cancelar\n");
 		
 	}
 	

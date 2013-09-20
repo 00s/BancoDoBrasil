@@ -5,7 +5,7 @@ public class ClienteNaoEncontradoException extends Exception{
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -7255189259052172019L;
+	private static final long serialVersionUID = 1L;
 	/**
 	 * 
 	 */

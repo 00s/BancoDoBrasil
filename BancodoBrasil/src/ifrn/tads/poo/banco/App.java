@@ -1,6 +1,7 @@
 package ifrn.tads.poo.banco;
 import ifrn.tads.poo.banco.cliente.*;
 import ifrn.tads.poo.banco.exceptions.ClienteNaoEncontradoException;
+import ifrn.tads.poo.banco.exceptions.ContaNaoEncontradaException;
 import ifrn.tads.poo.banco.exceptions.NumContaExistenteException;
 import ifrn.tads.poo.banco.exceptions.SaldoInsuficienteException;
 import ifrn.tads.poo.banco.exceptions.SenhaIncorretaException;
@@ -15,14 +16,14 @@ public class App {
 	static Scanner lerTexto = new Scanner(System.in);
 	public static Banco banco;
 	PessoaJuridica pj;
-	static AlgoritmoDerpofoldao adp = new AlgoritmoDerpofoldao();
+	static AlgoritmoDerpofoldao                                                                                                 adp = new AlgoritmoDerpofoldao();
 	static Mensagens msg = new Mensagens();
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
-		System.out.println("CADASTRAR BANCO:\n"
-				+ "Novo banco");
+//		System.out.println("CADASTRAR BANCO:\n"
+//				+ "Novo banco");
 		
 		banco = new Banco(40052505, "Banco do Brasil");
 		Agencia a;
@@ -42,11 +43,12 @@ public class App {
 					menuAgencia(a);
 			break;
 		case 2:
-			System.out.println("Numero da agencia:\n");
+			System.out.println("Numero da agencia:");
 
 				a = banco.buscarAgencia(ler.nextInt());
-				menuAgencia(a);
-
+				
+				if(a != null)	
+					menuAgencia(a);
 
 			break;
 			
@@ -286,36 +288,38 @@ public class App {
 	public static void menuConta(ContaPoupanca cp){
 		int opMenuConta;
 		
-		msg.menuContaPoupanca();
-		
-		opMenuConta = ler.nextInt();
-		
-		switch (opMenuConta) {
-		case 1: // consultar saldo
-		   System.out.printf("Sr(a). %s, seu saldo atual e de %f.\n", cp.getCliente().getNome(), cp.getSaldo());
+		do{	
+			msg.menuContaPoupanca();
 			
-			break;
-		case 2: // ver situacao da conta
-			System.out.println(cp.verSituacao());
+			opMenuConta = ler.nextInt();
 			
-			break;
-		case 3: // Sacar
-			fluxoSaque(cp);
+			switch (opMenuConta) {
+			case 1: // consultar saldo
+			   System.out.printf("Sr(a). %s, seu saldo atual e de %f.\n", cp.getCliente().getNome(), cp.getSaldo());
+				
+				break;
+			case 2: // ver situacao da conta
+				System.out.println(cp.verSituacao());
+				
+				break;
+			case 3: // Sacar
+				fluxoSaque(cp);
+				
+				break;
+				
+			case 4: // transferencia
+				fluxoTransferencia(cp);
+				
+				break;
 			
-			break;
-			
-		case 4: // transferencia
-			fluxoTransferencia(cp);
-			
-			break;
-		
-		case 5: // cancelar
-			break;
-
-		default:
-			msg.entradaIncorreta();
-			break;
-		}		
+			case 5: // cancelar
+				break;
+	
+			default:
+				msg.entradaIncorreta();
+				break;
+			}	
+		}while(opMenuConta != 5);
 	}
 
 	
@@ -328,10 +332,10 @@ public class App {
 		try{
 			conta.sacar(valor, senha);
 			System.out.println("Saque efetuado.\n---\n");
-		}catch (SaldoInsuficienteException s){
-			System.out.println(s.getMessage()); /// TRYCATCHCCCCH
 		}catch (SenhaIncorretaException s){
 			System.out.println(s.getMessage(conta.getCliente().getNome()));
+		}catch (SaldoInsuficienteException s){
+			System.out.println(s.getMessage()); /// TRYCATCHCCCCH
 		}
 	}
 	
@@ -344,8 +348,11 @@ public class App {
 		System.out.println("Informe o valor do deposito: \n");
 		double valor = ler.nextDouble();
 		
-		banco.buscarAgencia(numAgencia).buscarConta(numConta).depositar(valor);
-		
+		try{
+			banco.buscarAgencia(numAgencia).buscarConta(numConta).depositar(valor);
+		}catch(ContaNaoEncontradaException cne){
+			System.out.println(cne.getMessage());
+		}
 	}
 	
 	private static void fluxoTransferencia(Conta conta){
@@ -388,19 +395,29 @@ public class App {
 		
 		switch (qualTipoDeConta) {
 		case 1: // Conta corrente
-			ContaCorrente cc = (ContaCorrente) a.buscarConta(numConta);	
-			if(cc != null){
+			ContaCorrente cc;
+			try	{
+				cc = (ContaCorrente) a.buscarConta(numConta);	
 				System.out.println(cc.verInformacoesCliente().toString());
 				menuConta(cc);
+			}catch(ContaNaoEncontradaException cne){
+				System.out.println(cne.getMessage());
 			}
+
+			
 			break;
 		
 		case 2: //  Conta poupança
-			ContaPoupanca cp = (ContaPoupanca) a.buscarConta(numConta);
-			if(cp != null){
+			ContaPoupanca cp;
+			try{
+				cp = (ContaPoupanca) a.buscarConta(numConta);
 				System.out.println(cp.verInformacoesCliente().toString());
 				menuConta(cp);
+			}catch(ContaNaoEncontradaException cne){
+				System.out.println(cne.getMessage());
 			}
+			
+			
 			break;
 	
 		default:

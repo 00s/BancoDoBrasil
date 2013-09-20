@@ -63,7 +63,7 @@ public abstract class Conta {
 		}
 		
 		if(c.buscarAgencia(banco, numAgencia) != null){
-			if (c.buscarConta(banco, numAgencia) != null){
+			if (c.buscarConta(banco, numConta) != null){
 				this.sacar(valor, senha);
 				c.buscarAgencia(banco, numAgencia).buscarConta(numAgencia).depositar(valor);
 				System.out.println("Transferencia efetuada.");

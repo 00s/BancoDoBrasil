@@ -8,8 +8,8 @@ public class ContaPoupanca extends Conta {
 	private Date aniversario;
 	
 	@SuppressWarnings("deprecation")
-	public ContaPoupanca(int numero, Cliente c) {
-		super(numero, c);
+	public ContaPoupanca(int numConta, Cliente c) {
+		super(numConta, c);
 	//	aniversario.getDate(); // verificar se este é o método correto
 	}
 	

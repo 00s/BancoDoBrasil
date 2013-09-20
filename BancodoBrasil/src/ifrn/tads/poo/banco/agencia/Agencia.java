@@ -53,7 +53,7 @@ public class Agencia {
 	}
 	
 	
-	public Conta buscarConta(int numero){
+	public Conta buscarConta(int numero) throws ContaNaoEncontradaException{
 	
 		for (int c = 0; c < contas.size(); c++){
 		
@@ -61,8 +61,7 @@ public class Agencia {
 				return contas.get(c);
 			}
 		}
-	System.out.println("Conta n�o encontrada.");
-	return null;
+		throw new ContaNaoEncontradaException();	
 	}
 
 	public ArrayList<Cliente> buscarCliente(String nome){
