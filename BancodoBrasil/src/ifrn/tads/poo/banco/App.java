@@ -386,14 +386,16 @@ public class App {
 		return false;
 	}
 	
-	private static void fluxoBuscarConta(Agencia a){
+	private static void fluxotipoDeConta(Agencia a){
 		
 		msg.qualTipoDeConta();
-		int qualTipoDeConta = ler.nextInt();
+		int tipoDeConta = ler.nextInt();
+		msg.qualNumeroDaAgencia();
+		int numAgencia = ler.nextInt();
 		msg.qualNumeroDaConta();
 		int numConta = ler.nextInt();
 		
-		switch (qualTipoDeConta) {
+		switch (tipoDeConta) {
 		case 1: // Conta corrente
 			ContaCorrente cc;
 			try	{
