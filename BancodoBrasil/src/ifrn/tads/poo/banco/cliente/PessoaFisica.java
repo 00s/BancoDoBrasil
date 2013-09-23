@@ -5,7 +5,7 @@ package ifrn.tads.poo.banco.cliente;
 
 public class PessoaFisica extends Cliente {
 	private String cpf;
-	public PessoaFisica(String nome, int telefone, String email, String cpf, int senha) {
+	public PessoaFisica(String nome, String telefone, String email, String cpf, String senha) {
 		
 		super(nome, telefone, email, senha);
 		this.cpf = cpf;

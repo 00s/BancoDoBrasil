@@ -1,6 +1,8 @@
 package ifrn.tads.poo.banco.cliente;
 import ifrn.tads.poo.banco.*;
 import ifrn.tads.poo.banco.agencia.*;
+import ifrn.tads.poo.banco.exceptions.AgenciaNaoEncontradaException;
+import ifrn.tads.poo.banco.exceptions.ContaNaoEncontradaException;
 import ifrn.tads.poo.banco.exceptions.SenhaIncorretaException;
 
 
@@ -8,41 +10,31 @@ public abstract class Cliente {
 	protected String nome, email;
 	protected int minhaConta;
 	protected int minhaAgencia;
-	protected int telefone;
-	protected int senha; 
+	protected String telefone;
+	protected String senha; 
 	
-	Cliente(String nome, int telefone, String email, int senha){
+	Cliente(String nome, String telefone, String email, String senha){
 		this.nome = nome.toUpperCase();
 		this.telefone = telefone;
 		this.email = email;
 		this.senha = senha;
 	}
 	
-	public Conta buscarConta(Banco banco, int numero){
-       Conta conta = null;
-		for (Agencia a : banco.getAgencias()){
-          if(a.buscarConta(numero) != null){
-        	  conta = a.buscarConta(numero);
-        	  break;
-          }
-		}
-	return conta;
+	public Conta buscarConta(Agencia a, int numConta) throws ContaNaoEncontradaException{
+		return a.buscarConta(numConta);
 	}
 	
-	public Agencia buscarAgencia(Banco banco, int numero){
-		return banco.buscarAgencia(numero);
+	public Agencia buscarAgencia(Banco banco, int numConta) throws AgenciaNaoEncontradaException{
+		return banco.buscarAgencia(numConta);
 	}
-	
 	
 	public abstract String toString();
-
-
 	
 	public String getNome() {
 		return nome;
 	}
 
-	public int getTelefone() {
+	public String getTelefone() {
 		return telefone;
 	}
 
@@ -66,8 +58,8 @@ public abstract class Cliente {
 		return minhaAgencia;
 	}
 	
-	public boolean checkSenha(int senha) throws SenhaIncorretaException{
-		if(this.senha == senha) return true;
+	public boolean checkSenha(String senha) throws SenhaIncorretaException{
+		if(this.senha.equals(senha)) return true;
 		throw new SenhaIncorretaException();	
 	}
 	

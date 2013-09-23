@@ -1,6 +1,8 @@
 package ifrn.tads.poo.banco.agencia;
 import ifrn.tads.poo.banco.Banco;
 import ifrn.tads.poo.banco.cliente.*;
+import ifrn.tads.poo.banco.exceptions.AgenciaNaoEncontradaException;
+import ifrn.tads.poo.banco.exceptions.ContaNaoEncontradaException;
 import ifrn.tads.poo.banco.exceptions.SaldoInsuficienteException;
 import ifrn.tads.poo.banco.exceptions.SenhaIncorretaException;
 
@@ -17,7 +19,7 @@ public abstract class Conta {
 		this.saldo = 0;
 	}
 	
-	public boolean sacar(double valor, int senha) throws SaldoInsuficienteException, SenhaIncorretaException{
+	public boolean sacar(double valor, String senha) throws SaldoInsuficienteException, SenhaIncorretaException{
 		
 		if(!c.checkSenha(senha)){
 			throw new SenhaIncorretaException();
@@ -33,7 +35,7 @@ public abstract class Conta {
 	
 	public void depositar(double valor){
 		this.saldo+=valor;
-		System.out.println("Deposito efetuado.");
+		//System.out.println("Deposito efetuado.");
 	}
 	
 	public double verSaldo(){
@@ -54,23 +56,12 @@ public abstract class Conta {
 		return c;
 	}
 	
-	public boolean transferirValor(Banco banco, int numConta, int numAgencia, double valor, int senha) throws SaldoInsuficienteException, SenhaIncorretaException{
+	public void transferirValor(Banco banco, int numConta, int numAgencia, double valor, String senha) throws SaldoInsuficienteException, SenhaIncorretaException, ContaNaoEncontradaException, AgenciaNaoEncontradaException{
 		
-		// implementar busca de conta
-		if(this.verSaldo() < valor){
-			System.out.println("Saldo insuficiente.");
-			return false;
-		}
+		this.sacar(valor, senha);
+		c.buscarAgencia(banco, numAgencia).buscarConta(numConta).depositar(valor);
+		System.out.println("Transferencia efetuada.");
 		
-		if(c.buscarAgencia(banco, numAgencia) != null){
-			if (c.buscarConta(banco, numConta) != null){
-				this.sacar(valor, senha);
-				c.buscarAgencia(banco, numAgencia).buscarConta(numAgencia).depositar(valor);
-				System.out.println("Transferencia efetuada.");
-				return true;
-			}
-		} 
-		return false;
 	}
 	
 	public String verSituacao(){

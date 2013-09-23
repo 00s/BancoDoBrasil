@@ -1,6 +1,6 @@
 package ifrn.tads.poo.banco;
 import ifrn.tads.poo.banco.agencia.*;
-import ifrn.tads.poo.banco.exceptions.ContaNaoEncontradaException;
+import ifrn.tads.poo.banco.exceptions.AgenciaNaoEncontradaException;
 
 import java.util.ArrayList;;
 
@@ -15,7 +15,7 @@ public class Banco {
 		this.numero = numero;
 	}
 	
-	public Agencia buscarAgencia(int numero){
+	public Agencia buscarAgencia(int numero) throws AgenciaNaoEncontradaException{
 	
 		if(agencias.size() != 0){			
 			for(int i=0; i< agencias.size();i++){
@@ -24,8 +24,7 @@ public class Banco {
 				}
 			}
 		}
-		System.out.println("Agencia nao encontrada");
-		return null;
+		throw new AgenciaNaoEncontradaException();
 	}
 	
 	public void adicionarAgencia(Agencia a){
