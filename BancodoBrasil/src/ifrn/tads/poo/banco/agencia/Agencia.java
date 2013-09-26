@@ -9,14 +9,12 @@ public class Agencia {
 	private ArrayList<Conta> contas = new ArrayList<Conta>();
 	private ArrayList<Cliente> clientes = new ArrayList<Cliente>();
 	private int numero;
-	private String nome, endereco, nomeGerente;
 
 	public Agencia(int numero){
 		this.numero = numero;
 	}	
 
 	public boolean criarContaCorrente(Cliente c, int numConta) throws NumContaExistenteException {
-		
 
 		for(Cliente cl : clientes){
 			if(cl.getMinhaConta() == numConta){
@@ -76,20 +74,8 @@ public class Agencia {
 	return clientesEncontrados;
 	}
 
-	public ArrayList<Conta> getContas() {
-		return contas;
-	}
-
 	public void setContas(ArrayList<Conta> contas) {
 		this.contas = contas;
-	}
-
-	public ArrayList<Cliente> getClientes() {
-		return clientes;
-	}
-
-	public void setClientes(ArrayList<Cliente> clientes) {
-		this.clientes = clientes;
 	}
 
 	public int getNumero() {
@@ -100,29 +86,4 @@ public class Agencia {
 		this.numero = numero;
 	}
 
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
-	public String getEndereco() {
-		return endereco;
-	}
-
-	public void setEndereco(String endereco) {
-		this.endereco = endereco;
-	}
-
-	public String getNomeGerente() {
-		return nomeGerente;
-	}
-
-	public void setNomeGerente(String nomeGerente) {
-		this.nomeGerente = nomeGerente;
-	}
-	
-	
 }

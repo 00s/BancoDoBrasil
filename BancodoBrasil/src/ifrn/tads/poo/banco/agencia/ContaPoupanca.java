@@ -28,27 +28,13 @@ public class ContaPoupanca extends Conta {
  		}
 		setAniversario(hoje); // faz com que o próximo calculo seja executado a partir deste.
 							 // data de criação da conta armazenada em dataAniversario
-			//System.out.printf("O rendimento no momento e: %.2f\n", this.saldo);
-
-		}
+	}
+	
 	public double getSaldo(){
 		aplicarRendimento();
 		return this.saldo;
 	}
 	
-//	public void aplicarRendimento(String data) throws ParseException{
-//
-//		Date hoje = format.parse(data);
-//		double dif = diferencaMeses(hoje);
-//		System.out.println(dif);
-//		while(dif-- > 0){
-//			this.saldo *= 1.005;
-//		}
-//		setAniversario(hoje); // faz com que o próximo calculo seja executado a partir deste.
-//							 // data de criação da conta armazenada em dataAniversario
-//			System.out.printf("O rendimento no momento e: %.2f\n", this.saldo);
-//	}
-
 	public void setAniversario(Date hoje) {
 		this.ultimaData = hoje;
 	}

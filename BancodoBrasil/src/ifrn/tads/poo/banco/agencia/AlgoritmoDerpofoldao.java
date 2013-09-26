@@ -3,24 +3,22 @@ package ifrn.tads.poo.banco.agencia;
 import java.util.Random;
 public class AlgoritmoDerpofoldao {
 
-	Random number = new Random();
-	int counter = 1, pre;
-	
+	private Random number = new Random();
+	private int counter = 1, pre;
 	
 	public AlgoritmoDerpofoldao() {
-		do  {	
-			pre = number.nextInt(9999);
-	     	} while(pre<1000);
+		this.pre = getPre();
 	}
+	
+	// usado para verificação de conta válida pela classe VerificadoDeConta
 	public AlgoritmoDerpofoldao(int pre){
 		this.pre = pre;
 	}
 	
 	public int gerarNumero(){
 	
-		
 		int numeroValido = derpofoldao(pre, pre, 0);
-	//	System.out.println(numeroValido);
+		pre = getPre();
 		return numeroValido;
 	}
 	
@@ -39,5 +37,14 @@ public class AlgoritmoDerpofoldao {
 		}else{
 			return (pre*10)+(resto-2);
 		}
+	}
+	
+	private int getPre(){
+		int pre;
+		do  {	
+			pre = number.nextInt(9999);
+	    } while(pre<1000);
+	
+		return pre;
 	}
 }

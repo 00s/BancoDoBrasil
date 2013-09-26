@@ -38,14 +38,6 @@ public abstract class Conta {
 		//System.out.println("Deposito efetuado.");
 	}
 	
-	public double verSaldo(){
-		return saldo;
-	}
-	
-	public void cancelarConta(){
-		
-	}
-	
 	public void alterarEstadoConta(){
 		if (this.ativa)	this.ativa = false;
 		else this.ativa = true;
@@ -68,7 +60,6 @@ public abstract class Conta {
 		String sit;
 		if(!ativa)
 			sit = "Conta nao ativa\n";
-		// adicionar limite
 		else
 			sit = "Conta ativa\n";
 

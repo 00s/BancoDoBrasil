@@ -23,7 +23,7 @@ public class Mensagens {
 						+ "2 - Buscar conta\n"
 						+ "3 - Buscar cliente\n" 
 						+ "4 - Realizar deposito\n"
-						+ "5 - Voltar\n", a.getNumero());
+						+ "5 - Retornar\n", a.getNumero());
 	}
 	
 	public void menuContaCorrente(){
@@ -32,7 +32,7 @@ public class Mensagens {
 						   "3 - Saque\n" +
 						   "4 - Transferencia\n" +
 						   "5 - Alterar limite \n" +
-						   "6 - Cancelar\n");
+						   "6 - Retornar\n");
 	}
 	
 	public void menuContaPoupanca(){
@@ -40,7 +40,7 @@ public class Mensagens {
 				   			"2 - Ver Situacao da conta\n" +
 				   			"3 - Saque\n" +
 				   			"4 - Transferencia\n" +
-				   			"5 - Cancelar\n");
+				   			"5 - Retornar\n");
 		
 	}
 	

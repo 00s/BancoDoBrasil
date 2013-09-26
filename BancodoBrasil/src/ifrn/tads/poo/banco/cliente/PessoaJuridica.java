@@ -1,8 +1,5 @@
 package ifrn.tads.poo.banco.cliente;
 
-//import ifrn.tads.poo.banco.agencia.Agencia;
-//import ifrn.tads.poo.banco.agencia.Conta;
-
 public class PessoaJuridica extends Cliente{
 	private String nomeFantasia, cnpj;
 	public PessoaJuridica(String nome, String telefone, String email, String nomeFantasia, String cnpj, String senha){
@@ -19,8 +16,8 @@ public class PessoaJuridica extends Cliente{
 				+ "\n\tConta: " + super.minhaConta
 				+ "\n\tNome Fantasia: "	+ getNomeFantasia()
 				+ "\n\tEmail: " + getEmail() 
-				+ "\n\tTelefone: " 
-				+ getTelefone() + "\n---";
+				+ "\n\tTelefone: "	+ getTelefone() 
+				+ "\n---";
 	}
 	
 	public String getNomeFantasia() {

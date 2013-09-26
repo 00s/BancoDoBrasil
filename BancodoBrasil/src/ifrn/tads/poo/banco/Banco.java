@@ -6,13 +6,11 @@ import java.util.ArrayList;;
 
 public class Banco {
 	private String nome;
-	private int numero;
 	private ArrayList<Agencia> agencias = new ArrayList<Agencia>();
 	
 	
-	Banco(int numero, String nome){
+	Banco(String nome){
 		this.nome = nome;
-		this.numero = numero;
 	}
 	
 	public Agencia buscarAgencia(int numero) throws AgenciaNaoEncontradaException{
@@ -38,22 +36,5 @@ public class Banco {
 	public String getNome() {
 		return nome;
 	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
-	public int getNumero() {
-		return numero;
-	}
-
-	public void setNumero(int numero) {
-		this.numero = numero;
-	}
-
-	public void setAgencias(ArrayList<Agencia> agencias) {
-		this.agencias = agencias;
-	}
-	
 	
 }

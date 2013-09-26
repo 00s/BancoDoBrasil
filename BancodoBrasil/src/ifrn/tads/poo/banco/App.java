@@ -1,33 +1,24 @@
 package ifrn.tads.poo.banco;
 import ifrn.tads.poo.banco.cliente.*;
-import ifrn.tads.poo.banco.exceptions.AgenciaNaoEncontradaException;
-import ifrn.tads.poo.banco.exceptions.ClienteNaoEncontradoException;
-import ifrn.tads.poo.banco.exceptions.ContaNaoEncontradaException;
-import ifrn.tads.poo.banco.exceptions.NumContaExistenteException;
-import ifrn.tads.poo.banco.exceptions.SaldoInsuficienteException;
-import ifrn.tads.poo.banco.exceptions.SenhaIncorretaException;
-import ifrn.tads.poo.banco.exceptions.SenhaInvalidaException;
+import ifrn.tads.poo.banco.exceptions.*;
 import ifrn.tads.poo.banco.agencia.*;
-
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-
 public class App {
-	static Scanner  ler = new Scanner(System.in);
-	static Scanner lerTexto = new Scanner(System.in);
-	public static Banco banco;
+	private static Scanner  ler = new Scanner(System.in);
+	private static Scanner lerTexto = new Scanner(System.in);
+	private static Banco banco;
 	
-	static AlgoritmoDerpofoldao adp = new AlgoritmoDerpofoldao();
-	static Mensagens msg = new Mensagens();
+	private static AlgoritmoDerpofoldao adp = new AlgoritmoDerpofoldao();
+	private static Mensagens msg = new Mensagens();
 	
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		
+				
 		System.out.println("CADASTRO DE BANCO\n Nome do banco:");
 		String nomeBanco = lerTexto.nextLine();
-		banco = new Banco(1, nomeBanco);
+		banco = new Banco(nomeBanco);
 		
 		System.out.println("\n Bem vindo ao " + nomeBanco.toUpperCase() + "\n-");
 		Agencia a;	
@@ -46,27 +37,26 @@ public class App {
 							menuAgencia(a);
 					break;
 				case 2:
-					System.out.println("Numero da agencia:");
+							System.out.println("Numero da agencia:");
 					
-					try{
-						a = banco.buscarAgencia(ler.nextInt());
-						menuAgencia(a);
-					}catch(AgenciaNaoEncontradaException ane){}	
+							try{
+								a = banco.buscarAgencia(ler.nextInt());
+								menuAgencia(a);
+							}catch(AgenciaNaoEncontradaException ane){
+								ane.getMessage();
+							}	
 		
 					break;
 					
 				case 9:
-					System.out.println("Sistema Encerrado.");
-					System.exit(0);
+							System.out.println("Sistema Encerrado.");
+							System.exit(0);
 					break;
 				default:
-					System.out.println("Opção Inválida. Tente Novamente.\n");
+							System.out.println("Opção Inválida. Tente Novamente.\n");
 					break;
 				}
-			}catch(InputMismatchException e){
-				ler.nextLine();
-				msg.entradaIncorreta();
-			}
+			}catch(InputMismatchException e){ler.nextLine(); msg.entradaIncorreta();}
 			
 		}while(opcao != 9);
 	}
@@ -80,39 +70,68 @@ public class App {
 				msg.menuAgencia(a);
 				
 				switch (opAgencia = ler.nextInt()) {
-					case 1: // Abre conta
+					case 1: // Abre conta apos cadastrar cliente
 			
-							cadastrarCliente(a);
+								cadastrarCliente(a);
 						break;
-					case 2: // busca conta
-							fluxoBuscarConta(a);
+					case 2: 
+								fluxoBuscarConta(a);
 						break;
 					case 3: //busca cliente em todas as agencias e imprime toString de cada cliente
 						try{
-							fluxoBuscarCliente();
+								fluxoBuscarCliente();
 						}catch(ClienteNaoEncontradoException c){
-							System.out.println(c.getMessage());
+								System.out.println(c.getMessage());
 						}
 						break;
-					case 4: // realiza deposito
-							fluxoDeposito();
+					case 4:
+								fluxoDeposito();
 						break;
-					case 5:
+					case 5: // opcao para sair deste menu
 						break;
 					default:
 						msg.entradaIncorreta();
 						break;
 				}
+				
 			}catch(InputMismatchException e){ ler.nextLine(); msg.entradaIncorreta();}
+			
 		}while(opAgencia != 5);
 		
 	}
+	
+	
+	public static void cadastrarCliente(Agencia a){
+
+		int tipoDeCliente = 0;
+		
+		do {
+			try{
+				msg.qualTipoDeCliente();
+				switch (tipoDeCliente = ler.nextInt()) {
+					case 1:
+							menuAgenciaCriarContaPessoaFisica(a);
+						
+						break;
+					case 2:
+							criarContaPessoaJuridica(a);
+			
+					default:
+							msg.entradaIncorreta();
+						break;
+				}
+			}catch(InputMismatchException e){ler.nextLine(); msg.entradaIncorreta();}
+			
+		}while(tipoDeCliente > 2 || tipoDeCliente < 1);
+	}
+	
 	
 	public static void menuAgenciaCriarContaPessoaFisica(Agencia a){
 		Cliente c;
 		int qualConta = 0;
 		msg.qualTipoDeConta();
 		boolean contaCriada = false;
+		
 		do{
 			try{
 				switch (qualConta = ler.nextInt()) {
@@ -139,6 +158,7 @@ public class App {
 					break;
 		
 				default:
+						msg.entradaIncorreta();
 					break;
 				}
 			}catch(InputMismatchException e){ ler.nextLine(); msg.entradaIncorreta();}
@@ -156,29 +176,7 @@ public class App {
 		}while(!contaCriada);
 	}
 	
-	
-	public static void cadastrarCliente(Agencia a){
 
-		int tipoDeCliente = 0;
-		
-		do {
-			try{
-				msg.qualTipoDeCliente();
-				switch (tipoDeCliente = ler.nextInt()) {
-					case 1:
-							menuAgenciaCriarContaPessoaFisica(a);
-						
-						break;
-					case 2:
-							criarContaPessoaJuridica(a);
-			
-					default:
-						break;
-				}
-			}catch(InputMismatchException e){ler.nextLine(); msg.entradaIncorreta();}
-		}while(tipoDeCliente > 2 || tipoDeCliente < 1);
-	}
-	
 	public static PessoaFisica cadastrarClientePessoaFisica(){
 		
 			msg.qualNome();
@@ -216,41 +214,43 @@ public class App {
 	}
 	
 	public static PessoaJuridica cadastrarClientePessoaJuridica(){
-		msg.qualNome();
-		String nome = lerTexto.nextLine();
 		
-		msg.qualTelefone();
-		String telefone = ler.next();
+			msg.qualNome();
+			String nome = lerTexto.nextLine();
+			
+			msg.qualTelefone();
+			String telefone = ler.next();
+			
+			msg.qualEmail();
+			String email = ler.next();
+			
+			msg.qualNomeFantasia();
+			String nomeFantasia = lerTexto.nextLine();
+			
+			msg.qualCNPJ();
+			String cnpj = ler.next();
+			
+			String senha = null;
+			boolean senhasOK = false;
 		
-		msg.qualEmail();
-		String email = ler.next();
-		
-		msg.qualNomeFantasia();
-		String nomeFantasia = lerTexto.nextLine();
-		
-		msg.qualCNPJ();
-		String cnpj = ler.next();
-		
-		String senha = null;
-		boolean senhasOK = false;
+			do {
+				try {
+					 
+					senha = criarSenha();
+					senhasOK = true;
+				} catch(SenhaInvalidaException e){
+					System.out.println(e.getMessage());
+				} catch (SenhaIncorretaException e) {
+					System.out.println(e.getMessage(nome));
 	
-		do {
-			try {
-				 
-				senha = criarSenha();
-				senhasOK = true;
-			} catch(SenhaInvalidaException e){
-				System.out.println(e.getMessage());
-			} catch (SenhaIncorretaException e) {
-				System.out.println(e.getMessage(nome));
-
-			}
-		} while (!senhasOK);
-		
+				}
+			} while (!senhasOK);
+			
 		return new PessoaJuridica(nome, telefone, email, nomeFantasia, cnpj, senha);
 	}
 
 	public static void menuConta(ContaCorrente cc){
+		System.out.println(cc.verInformacoesCliente().toString());
 		int opMenuConta = 0;
 	do{	
 		try{
@@ -260,7 +260,7 @@ public class App {
 			
 			switch (opMenuConta) {
 			case 1: // consultar saldo
-			   System.out.printf("Sr(a). %s, seu saldo atual (com limite) Ã© de %.2f.\n\n", cc.getCliente().getNome(), cc.getSaldo());
+			   System.out.printf("Sr(a). %s, seu saldo atual (com limite) e de %.2f.\n\n", cc.getCliente().getNome(), cc.getSaldo());
 				
 				break;
 			case 2: // ver situacao da conta
@@ -284,6 +284,7 @@ public class App {
 				break;
 	
 			default:
+				msg.entradaIncorreta();
 				break;
 			}
 		}catch(InputMismatchException e){ ler.nextLine(); msg.entradaIncorreta();}	
@@ -293,6 +294,7 @@ public class App {
 	
 	
 	public static void menuConta(ContaPoupanca cp){
+		System.out.println(cp.verInformacoesCliente().toString());
 		int opMenuConta = 0;
 		
 		do{	
@@ -307,20 +309,20 @@ public class App {
 					
 					break;
 				case 2: // ver situacao da conta
-					System.out.println(cp.verSituacao());
+						System.out.println(cp.verSituacao());
 					
 					break;
 				case 3: // Sacar
-					fluxoSaque(cp);
+						fluxoSaque(cp);
 					
 					break;
 					
 				case 4: // transferencia
-					fluxoTransferencia(cp);
+						fluxoTransferencia(cp);
 					
 					break;
 				
-				case 5: // cancelar
+				case 5: // retornar
 					break;
 		
 				default:
@@ -344,7 +346,7 @@ public class App {
 		}catch (SenhaIncorretaException s){
 			System.out.println(s.getMessage(conta.getCliente().getNome()));
 		}catch (SaldoInsuficienteException s){
-			System.out.println(s.getMessage()); /// TRYCATCHCCCCH
+			System.out.println(s.getMessage());
 		}catch(InputMismatchException e){ ler.nextLine(); msg.entradaIncorreta();}	
 	}
 	
@@ -360,11 +362,11 @@ public class App {
 			banco.buscarAgencia(numAgencia).buscarConta(numConta).depositar(valor);
 			System.out.println("Depósito efetuado.\n");
 				
-			}catch(AgenciaNaoEncontradaException ane){
-				System.out.println(ane.getMessage());
-			}catch(ContaNaoEncontradaException cne){
-				System.out.println(cne.getMessage());
-			}catch(InputMismatchException e){ ler.nextLine(); msg.entradaIncorreta();}
+		}catch(AgenciaNaoEncontradaException ane){
+			System.out.println(ane.getMessage());
+		}catch(ContaNaoEncontradaException cne){
+			System.out.println(cne.getMessage());
+		}catch(InputMismatchException e){ ler.nextLine(); msg.entradaIncorreta();}
 	}
 	
 	private static void fluxoTransferencia(Conta conta){
@@ -391,10 +393,10 @@ public class App {
 		}catch(InputMismatchException e){ ler.nextLine(); msg.entradaIncorreta();}
 	}
 	
-	private static void fluxoAlteracaoDeLimite(ContaCorrente cc){ // catch ContaInvalidaException
+	private static void fluxoAlteracaoDeLimite(ContaCorrente cc){
 		double novoLimite;
 		try{	
-			if(cc.isAtiva()){
+			if(cc.isAtiva())
 				System.out.println("Insira novo limite: \n");
 			do{	
 				novoLimite = ler.nextDouble();
@@ -403,11 +405,12 @@ public class App {
 					System.out.println("O limite não pode ser negativo. Tente novamente.\n");
 				}
 			}while(novoLimite <0);	
-				cc.mudarLimiteDaConta(novoLimite);
+			if(cc.mudarLimiteDaConta(novoLimite))
 				System.out.println("Limite alterado para: " + novoLimite +".\n---\n");
-			
-			}
-		}catch(InputMismatchException e){ ler.nextLine(); msg.entradaIncorreta();}
+		}catch(InputMismatchException e){ ler.nextLine(); msg.entradaIncorreta();
+		}catch (LimiteLimitadoException lle){
+			System.out.println(lle.getMessage());
+		}
 	}
 	
 	private static void fluxoBuscarConta(Agencia a){
@@ -420,33 +423,25 @@ public class App {
 			
 			switch (qualTipoDeConta) {
 			case 1: // Conta corrente
-				ContaCorrente cc;
 				try	{
-					cc = (ContaCorrente) a.buscarConta(numConta);	
-					System.out.println(cc.verInformacoesCliente().toString());
-					menuConta(cc);
+					menuConta((ContaCorrente) a.buscarConta(numConta));
 				}catch(ContaNaoEncontradaException cne){
 					System.out.println(cne.getMessage());
 				}catch(ClassCastException cce){
 					System.out.println("Esta conta não é do tipo conta poupança.\n");
 				}
-	
 				
 				break;
 			
-			case 2: //  Conta poupanÃ§a
-				ContaPoupanca cp;
+			case 2: //  Conta poupanca
 				try{
-					cp = (ContaPoupanca) a.buscarConta(numConta);
-					System.out.println(cp.verInformacoesCliente().toString());
-					menuConta(cp);
+					menuConta((ContaPoupanca) a.buscarConta(numConta));
 				}catch(ContaNaoEncontradaException cne){
 					System.out.println(cne.getMessage());
 				}catch(ClassCastException cce){
 					System.out.println("Esta conta não é do tipo conta corrente.\n");
 				}
-				
-				
+					
 				break;
 		
 			default:
@@ -496,9 +491,3 @@ public class App {
 	}
 	
 }
-
-
-/*
- * .jar
- * criar metodos de verificaÃ§ao de datas para juros e rendimentos 
- */

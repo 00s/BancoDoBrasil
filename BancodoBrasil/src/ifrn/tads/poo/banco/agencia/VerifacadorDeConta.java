@@ -6,12 +6,10 @@ public class VerifacadorDeConta {
 	
 	public boolean verificar(int numConta){
 		
-	//	try{
 			alg = new AlgoritmoDerpofoldao(numConta/10);
 			int testeNumero = alg.gerarNumero();
 			if (testeNumero == numConta) return true;
-	//	}catch(ContaInvalidaException e){	
-	//	}
+
 return false;
 	}
 }
